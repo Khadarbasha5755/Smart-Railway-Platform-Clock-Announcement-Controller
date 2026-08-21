@@ -143,7 +143,7 @@ Train Status
 Example:
 
 ```c
-{20701,"Tirupati Vande Bharat","GUNTUR",
+{20701,"Tirupati Vande Bharat","Tirupati",
  1,9,30,9,40,0,0}
 ```
 
