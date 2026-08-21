@@ -829,6 +829,14 @@ Alert           : Buzzer
 Status          : LEDs
 ```
 
+### Proteus Simulation
+
+<img src="Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
+
+### Train Information Display
+
+<img src="Smart_Railway_Platform_Clock_Announcement_Controller_1.png" width="500">
+
 ## 📌 Project Status
 
 **Status:** Completed
