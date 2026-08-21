@@ -789,6 +789,14 @@ The simulation includes:
 
 The firmware can be compiled using Keil and the generated HEX file can be loaded into the LPC2129 Proteus model.
 
+### Proteus Simulation
+
+<img src="Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
+
+### Train Information Display
+
+<img src="Smart_Railway_Platform_Clock_Announcement_Controller_1.png" width="600">
+
 ## 🎯 Applications
 
 This project can be used as a prototype for:
@@ -828,14 +836,6 @@ Timekeeping     : RTC
 Alert           : Buzzer
 Status          : LEDs
 ```
-
-### Proteus Simulation
-
-<img src="Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
-
-### Train Information Display
-
-<img src="Smart_Railway_Platform_Clock_Announcement_Controller_1.png" width="500">
 
 ## 📌 Project Status
 
