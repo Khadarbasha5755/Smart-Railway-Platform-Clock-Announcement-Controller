@@ -1,4 +1,4 @@
-# Smart Railway Platform Clock & Announcement Controller
+# Smart Railway Platform Clock Announcement Controller
 
 An embedded railway platform management system developed using the **LPC2129 ARM7 microcontroller**. The system combines an RTC-based railway clock, train scheduling, LCD train information display, platform status LEDs, buzzer alerts, and  keypad-based administration.
 
