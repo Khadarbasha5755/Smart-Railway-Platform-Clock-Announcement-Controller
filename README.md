@@ -431,8 +431,8 @@ The 16×2 LCD is used to display train and RTC information.
 The LCD displays:
 
 ```text
-20701:Tirupati V
-PL1 A09:30 D09:40
+20701<Tirupati V
+P1 A09:30 D09:40
 ```
 
 when a train is active.
@@ -440,8 +440,8 @@ when a train is active.
 When there is no matching train:
 
 ```text
-TIME:10:25:35
-THU 20/08/2026
+09:00:00  FRI
+21/08/2026
 ```
 
 ### 3. RTC Interface
