@@ -392,6 +392,332 @@ Handles external interrupt functionality for administrator access.
 
 Handles the administrator menu and user selections.
 
+## 🔌 Circuit Details
+
+The project is implemented using the **LPC2129 ARM7 microcontroller**. The LPC2129 acts as the main controller and interfaces with the LCD, RTC, keypad, LEDs, buzzer, and external interrupt circuit.
+
+### 1. LPC2129 Microcontroller
+
+The **LPC2129** is the main controller of the system.
+
+It performs:
+
+* RTC time monitoring
+* Train schedule comparison
+* LCD control
+* Keypad scanning
+* Train database management
+* LED status control
+* Buzzer control
+* Administrator mode handling
+* External interrupt processing
+
+### 2. 16×2 LCD Interface
+
+The 16×2 LCD is used to display train and RTC information.
+
+| LCD Pin | Connection                    |
+| ------- | ----------------------------- |
+| VSS     | GND                           |
+| VDD     | +5V                           |
+| VEE     | Contrast control              |
+| RS      | LPC2129 GPIO                  |
+| RW      | LPC2129 GPIO / GND            |
+| EN      | LPC2129 GPIO                  |
+| D0–D7   | LPC2129 GPIO                  |
+| LED+    | +5V through suitable resistor |
+| LED−    | GND                           |
+
+The LCD displays:
+
+```text
+20701:Tirupati V
+PL1 A09:30 D09:40
+```
+
+when a train is active.
+
+When there is no matching train:
+
+```text
+TIME:10:25:35
+THU 20/08/2026
+```
+
+### 3. RTC Interface
+
+The LPC2129 internal RTC is used to maintain the current:
+
+* Hour
+* Minute
+* Second
+* Date
+* Month
+* Year
+* Day
+
+The RTC time is compared with the train database to determine the current train.
+
+```text
+LPC2129 RTC
+     │
+     ├── Hour
+     ├── Minute
+     ├── Second
+     ├── Date
+     ├── Month
+     ├── Year
+     └── Day
+```
+
+### 4. 4×4 Keypad Interface
+
+The keypad is connected to LPC2129 GPIO pins and is used for user input.
+
+The keypad provides:
+
+* Train number entry
+* Password entry
+* Menu selection
+* Arrival time editing
+* Departure time editing
+* Train delay editing
+
+Typical keypad operation:
+
+```text
+        1   2   3   A
+        4   5   6   B
+        7   8   9   C
+        *   0   #   D
+```
+
+### 5. LED Interface
+
+Three LEDs are used to indicate the train status.
+
+| LED       | LPC2129 Pin | Function             |
+| --------- | ----------- | -------------------- |
+| 🟢 Green  | P0.23       | Train is on platform |
+| 🟡 Yellow | P0.24       | Train is approaching |
+| 🔴 Red    | P0.25       | Train has delay      |
+
+Each LED should be connected through an appropriate current-limiting resistor.
+
+#### Green LED
+
+```text
+P0.23 ── Resistor ──► Green LED ──► GND
+```
+
+The green LED is ON from the train's arrival time until its departure time.
+
+#### Yellow LED
+
+```text
+P0.24 ── Resistor ──► Yellow LED ──► GND
+```
+
+The yellow LED turns ON approximately **5 minutes before the train arrival time**.
+
+#### Red LED
+
+```text
+P0.25 ── Resistor ──► Red LED ──► GND
+```
+
+The red LED indicates that the train has a delay.
+
+If:
+
+```text
+Delay = 0 minutes
+```
+
+the red LED remains OFF.
+
+### 6. Buzzer Interface
+
+The buzzer is controlled by the LPC2129.
+
+```text
+LPC2129 GPIO
+     │
+     ▼
+  Buzzer Driver
+     │
+     ▼
+   Buzzer
+```
+
+The buzzer is activated when:
+
+* A train is approaching the platform
+* Train delay information is updated
+
+For a higher-current buzzer, a transistor driver circuit should be used instead of connecting the buzzer directly to the microcontroller GPIO.
+
+### 7. External Interrupt Interface
+
+An external interrupt is used to enter **Administrator Mode**.
+
+```text
+Push Button
+     │
+     ▼
+External Interrupt Pin
+     │
+     ▼
+   LPC2129
+     │
+     ▼
+Admin Mode
+```
+
+When the interrupt is triggered, the system enters the administrator section and requests a password.
+
+Example:
+
+```text
+Enter Password
+****
+```
+
+Only after successful authentication can the administrator access editing functions.
+
+### 8. Clock Circuit
+
+The LPC2129 requires an external crystal oscillator for its system clock.
+
+```text
+       Crystal
+    ┌────/\/\────┐
+    │            │
+ XTAL1          XTAL2
+    │            │
+    └─ LPC2129 ──┘
+```
+
+The exact crystal value should match the clock configuration used in the Keil project and Proteus simulation.
+
+### 9. Power Supply
+
+The circuit requires a regulated power supply suitable for the LPC2129 and connected peripherals.
+
+Important connections:
+
+```text
+VCC  → Supply
+GND  → Common Ground
+```
+
+All modules should share a **common ground**.
+
+The microcontroller supply and peripheral supply should be properly regulated and decoupled.
+
+### 10. Overall Circuit Block Diagram
+
+```text
+                         +-------------------+
+                         |     LPC2129       |
+                         |    ARM7 MCU       |
+                         +---------+---------+
+                                   |
+          +------------------------+------------------------+
+          |             |             |          |           |
+          ▼             ▼             ▼          ▼           ▼
+       16×2 LCD        RTC          Keypad     LEDs       Buzzer
+          |             |             |          |           |
+          |             |             |          |           |
+          ▼             ▼             ▼          ▼           ▼
+     Train/RTC      Current Time   Admin/Input  Status      Alert
+     Information
+                                   |
+                                   ▼
+                            External Interrupt
+                                   |
+                                   ▼
+                             Admin Mode
+                                   |
+                                   ▼
+                              Password
+                                   |
+                                   ▼
+                         Train Time / Delay
+                              Editing
+```
+
+### 11. Circuit Working
+
+The complete circuit operates in the following sequence:
+
+```text
+Power ON
+   ↓
+LPC2129 Initialization
+   ↓
+LCD / RTC / Keypad / LED / Buzzer Initialization
+   ↓
+Read RTC Time
+   ↓
+Compare With Train Database
+   ↓
+Is Train Matched?
+   ├── YES ──► Display Train Information
+   │             ↓
+   │         Train Name Scroll
+   │             ↓
+   │       Update LED Status
+   │             ↓
+   │       Activate Buzzer
+   │             ↓
+   │       Check Admin Interrupt
+   │
+   └── NO ───► Display RTC Time/Date
+                 ↓
+              Check Admin
+                 ↓
+              Repeat
+```
+
+### 12. Proteus Circuit
+
+The complete hardware circuit can be simulated in **Proteus** before deploying the program to the physical LPC2129 hardware.
+
+The Proteus design contains:
+
+* LPC2129
+* 16×2 LCD
+* RTC
+* 4×4 keypad
+* Green LED
+* Yellow LED
+* Red LED
+* Buzzer
+* External interrupt push button
+* Crystal oscillator
+* Power supply
+* Required resistors and connections
+
+> **Note:** GPIO pin assignments for the LCD, keypad, buzzer, and external interrupt should be kept exactly the same as the corresponding definitions in the project source files. If the pin configuration is changed in hardware, the corresponding `PINSEL`, GPIO, and device-driver definitions must also be updated in the firmware.
+
+### 📋 Hardware Summary
+
+| Module       | Interface          | Purpose           |
+| ------------ | ------------------ | ----------------- |
+| LPC2129      | ARM7 MCU           | Main controller   |
+| 16×2 LCD     | GPIO               | Train/RTC display |
+| RTC          | Internal RTC       | Time and date     |
+| 4×4 Keypad   | GPIO               | User/admin input  |
+| Green LED    | P0.23              | Train on platform |
+| Yellow LED   | P0.24              | Train approaching |
+| Red LED      | P0.25              | Train delayed     |
+| Buzzer       | GPIO               | Audio alert       |
+| Push Button  | External Interrupt | Enter admin mode  |
+| Crystal      | XTAL1/XTAL2        | System clock      |
+| Power Supply | VCC/GND            | Circuit power     |
+
+
 ## 🔄 System Flow
 
 ```text
