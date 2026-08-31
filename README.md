@@ -485,12 +485,7 @@ The keypad provides:
 
 Typical keypad operation:
 
-```text
-        1   2   3   A
-        4   5   6   B
-        7   8   9   C
-        *   0   #   D
-```
+  <img src="Pictures/Keypad.png" width="250">
 
 ### 5. LED Interface
 
@@ -585,22 +580,7 @@ Enter Password
 
 Only after successful authentication can the administrator access editing functions.
 
-### 8. Clock Circuit
-
-The LPC2129 requires an external crystal oscillator for its system clock.
-
-```text
-       Crystal
-    ┌────/\/\────┐
-    │            │
- XTAL1          XTAL2
-    │            │
-    └─ LPC2129 ──┘
-```
-
-The exact crystal value should match the clock configuration used in the Keil project and Proteus simulation.
-
-### 9. Power Supply
+### 8. Power Supply
 
 The circuit requires a regulated power supply suitable for the LPC2129 and connected peripherals.
 
@@ -615,16 +595,16 @@ All modules should share a **common ground**.
 
 The microcontroller supply and peripheral supply should be properly regulated and decoupled.
 
-### 10. 🧩 Overall Circuit Block Diagram
+### 9. 🧩 Overall Circuit Block Diagram
 
 
 The following block diagram illustrates the overall architecture of the Smart Railway Platform Clock & Announcement Controller. The LPC2129 ARM7 microcontroller acts as the central controller and interfaces with the keypad, LCD, status LEDs, buzzer, and other system components.
 
 <p align="center">
-  <img src="Smart Railway Platform Clock & Announcement Controller Block Diagram.png" width="900">
+  <img src="Pictures/Smart Railway Platform Clock & Announcement Controller Block Diagram.png" width="900">
 </p>
 
-### 11. Circuit Working
+### 10. Circuit Working
 
 The complete circuit operates in the following sequence:
 
@@ -657,7 +637,7 @@ Is Train Matched?
               Repeat
 ```
 
-### 12. Proteus Circuit
+### 11. Proteus Circuit
 
 The complete hardware circuit can be simulated in **Proteus** before deploying the program to the physical LPC2129 hardware.
 
@@ -697,31 +677,7 @@ The Proteus design contains:
 
 ## 🔄 System Flow
 
-```text
-                 +----------------+
-                 |    LPC2129     |
-                 +-------+--------+
-                         |
-          +--------------+--------------+
-          |              |              |
-         RTC           Keypad          EINT
-          |              |              |
-          +--------------+--------------+
-                         |
-                  Train Database
-                         |
-                  Schedule Matching
-                         |
-              +----------+----------+
-              |                     |
-        Train Matched          No Train
-              |                     |
-      Train Information          RTC Info
-              |                     |
-       +------+------+              |
-       |      |      |              |
-      LCD    LED   Buzzer           LCD
-```
+<img src="Pictures/Flow Diagram.png" width="900">
 
 ## ⚙️ Working Principle
 
@@ -766,9 +722,9 @@ The simulation includes:
 
 The firmware can be compiled using Keil and the generated HEX file can be loaded into the LPC2129 Proteus model.
 
-### Proteus Simulation
+### LCD OUTPUTS
 
-<img src="Pictures/Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
+<img src="Pictures/LCD_Outputs.png" width="600">
 
 
 ## 🎯 Applications
