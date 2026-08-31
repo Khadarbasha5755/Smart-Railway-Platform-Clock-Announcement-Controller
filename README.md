@@ -615,37 +615,14 @@ All modules should share a **common ground**.
 
 The microcontroller supply and peripheral supply should be properly regulated and decoupled.
 
-### 10. Overall Circuit Block Diagram
+### 10. 🧩 Overall Circuit Block Diagram
 
-```text
-                         +-------------------+
-                         |     LPC2129       |
-                         |    ARM7 MCU       |
-                         +---------+---------+
-                                   |
-          +------------------------+------------------------+
-          |             |             |          |           |
-          ▼             ▼             ▼          ▼           ▼
-       16×2 LCD        RTC          Keypad     LEDs       Buzzer
-          |             |             |          |           |
-          |             |             |          |           |
-          ▼             ▼             ▼          ▼           ▼
-     Train/RTC      Current Time   Admin/Input  Status      Alert
-     Information
-                                   |
-                                   ▼
-                            External Interrupt
-                                   |
-                                   ▼
-                             Admin Mode
-                                   |
-                                   ▼
-                              Password
-                                   |
-                                   ▼
-                         Train Time / Delay
-                              Editing
-```
+
+The following block diagram illustrates the overall architecture of the Smart Railway Platform Clock & Announcement Controller. The LPC2129 ARM7 microcontroller acts as the central controller and interfaces with the keypad, LCD, status LEDs, buzzer, and other system components.
+
+<p align="center">
+  <img src="Smart Railway Platform Clock & Announcement Controller Block Diagram.png" width="900">
+</p>
 
 ### 11. Circuit Working
 
