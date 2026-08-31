@@ -267,46 +267,50 @@ A typical project structure is:
 ```text
 Smart-Railway-Platform-Clock/
 │
-├── main.c
+├── 📁 Source Files/
+│   ├── main.c
+│   ├── train_db.c
+│   ├── train_info_display.c
+│   ├── rtc.c
+│   ├── lcd.c
+│   ├── kpm.c
+│   ├── led.c
+│   ├── buzzer.c
+│   ├── eint_interrupt.c
+│   ├── menu.c
+│   └── delay.c
 │
-├── train_db.c
-├── train_db.h
+├── 📁 Header Files/
+│   ├── train_db.h
+│   ├── train_info_display.h
+│   ├── rtc.h
+│   ├── lcd.h
+│   ├── lcd_defines.h
+│   ├── kpm.h
+│   ├── led.h
+│   ├── buzzer.h
+│   ├── eint_interrupt.h
+│   ├── menu.h
+│   ├── delay.h
+│   ├── types.h
+│   └── defines.h
 │
-├── train_info_display.c
-├── train_info_display.h
+├── 📁 Hex File/
+│   └── Smart_Railway_Platform_Clock_Announcement_Controller.hex
 │
-├── rtc.c
-├── rtc.h
+├── 📁 Keil Project File/
+│   └── Smart_Railway_Platform_Clock_Announcement_Controller.uvproj
 │
-├── lcd.c
-├── lcd.h
-├── lcd_defines.h
+├── 📁 Pictures/
+│   ├── Flow Diagram.png
+│   ├── Keypad.png
+│   └── Block Diagram.png
 │
-├── kpm.c
-├── kpm.h
-│
-├── led.c
-├── led.h
-│
-├── buzzer.c
-├── buzzer.h
-│
-├── eint_interrupt.c
-├── eint_interrupt.h
-│
-├── menu.c
-├── menu.h
-│
-├── delay.c
-├── delay.h
-│
-├── types.h
-├── defines.h
+├── 📁 Proteus Design/
+│   └── Smart_Railway_Platform_Clock_Announcement_Controller.pdf
 │
 ├── README.md
-│
-└── Proteus/
-    └── Smart_Railway_Controller.pdsprj
+└── Setup and Installation Steps.pdf
 ```
 
 ## 🧩 Main Software Modules
