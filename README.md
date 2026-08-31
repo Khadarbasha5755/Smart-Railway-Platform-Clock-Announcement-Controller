@@ -304,6 +304,7 @@ Smart-Railway-Platform-Clock/
 ├── 📁 Pictures/
 │   ├── Flow Diagram.png
 │   ├── Keypad.png
+│   ├── LCD_Outputs.png
 │   └── Block Diagram.png
 │
 ├── 📁 Proteus Design/
@@ -605,7 +606,7 @@ The microcontroller supply and peripheral supply should be properly regulated an
 The following block diagram illustrates the overall architecture of the Smart Railway Platform Clock & Announcement Controller. The LPC2129 ARM7 microcontroller acts as the central controller and interfaces with the keypad, LCD, status LEDs, buzzer, and other system components.
 
 <p align="center">
-  <img src="Pictures/Smart Railway Platform Clock & Announcement Controller Block Diagram.png" width="900">
+  <img src="Pictures/Block Diagram.png" width="900">
 </p>
 
 ### 10. Circuit Working
