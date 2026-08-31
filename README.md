@@ -768,11 +768,8 @@ The firmware can be compiled using Keil and the generated HEX file can be loaded
 
 ### Proteus Simulation
 
-<img src="Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
+<img src="Pictures/Smart_Railway_Platform_Clock_Announcement_Controller.png" width="600">
 
-### Train Information Display
-
-<img src="Smart_Railway_Platform_Clock_Announcement_Controller_1.png" width="600">
 
 ## 🎯 Applications
 
